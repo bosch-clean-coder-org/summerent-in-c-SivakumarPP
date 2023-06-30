@@ -19,6 +19,8 @@ BreachType inferBreach(double value, double upperLimit) {
 
 int getUpperLimit(CoolingType coolingType)
 {
+  int upperLimit = 0;
+  
   if(coolingType == PASSIVE_COOLING)
   {
       upperLimit = 35;
@@ -30,10 +32,6 @@ int getUpperLimit(CoolingType coolingType)
   else if(coolingType == MED_ACTIVE_COOLING)
   {
       upperLimit = 40;
-  }
-  else
-  {
-    upperLimit = 0;
   }
 
   return upperLimit;
