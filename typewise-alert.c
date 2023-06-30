@@ -1,10 +1,16 @@
 #include "typewise-alert.h"
 #include <stdio.h>
 
-BreachType inferBreach(double value, double lowerLimit, double upperLimit) {
+BreachType inferLowBreach(double value, double lowerLimit) {
   if(value < lowerLimit) {
     return TOO_LOW;
-  } else if(value > upperLimit) {
+  } else {
+    return NORMAL;
+  }
+}
+
+BreachType inferBreach(double value, double upperLimit) {
+  if(value > upperLimit) {
     return TOO_HIGH;
   } else {
     return NORMAL;
@@ -29,7 +35,16 @@ BreachType classifyTemperatureBreach(
       upperLimit = 40;
   }
 
-  return inferBreach(temperatureInC, lowerLimit, upperLimit);
+  BreachType breachType = inferLowBreach(double value, double lowerLimit);
+
+  if(breachType != NORMAL)
+  {
+    return breachType;
+  }
+  
+  return inferHighBreach(value, upperLimit);
+
+//  return inferBreach(temperatureInC, lowerLimit, upperLimit);
 }
 
 void checkAndAlert(
